@@ -31,8 +31,10 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
     const isFacebookApp = userAgent.includes('FBAN') || userAgent.includes('FBAV');
 
     if (isFacebookApp) {
-      // Thay 'yourwebsite.com' với domain thực tế của bạn
-      window.location.href = `https://90rocks.com${router.asPath}`;
+      const chromeDeeplink = `googlechrome://${window.location.href}`;
+      window.location.href = chromeDeeplink;
+
+      // window.location.href = `${process.env.WORDPRESS_GRAPHQL_ENDPOINT.split('/graphql')[0]}${router.asPath}`;
     }
   }, [router.asPath]);
 
