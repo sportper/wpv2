@@ -1,5 +1,8 @@
 import NextApp from 'next/app';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 import { SiteContext, useSiteContext } from 'hooks/use-site';
 import { SearchProvider } from 'hooks/use-search';
 
@@ -20,6 +23,18 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
     categories,
     menus,
   });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent || '';
+    const isFacebookApp = userAgent.includes('FBAN') || userAgent.includes('FBAV');
+
+    if (isFacebookApp) {
+      // Thay 'yourwebsite.com' với domain thực tế của bạn
+      window.location.href = `https://90rocks.com${router.asPath}`;
+    }
+  }, [router.asPath]);
 
   return (
     <SiteContext.Provider value={site}>
